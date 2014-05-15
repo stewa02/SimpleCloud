@@ -1,0 +1,95 @@
+#!/usr/bin/perl -w
+
+##############################################################
+### Author: Stephan Wagner				   ###
+### Releasedate: 13.06.2013				   ###
+### Version: 0.1					   ###
+### License: GNU General Public License Version 3	   ###
+##############################################################
+
+# Header
+use strict;
+use warnings;
+use diagnostics;
+use 5.000;
+use Image::Size;
+use File::Path;
+
+# Globale Variabeln
+# --keine--
+
+sub Init {
+	# Lokale Variabeln
+	# --keine--
+	
+	if ($ARGV[0] eq "getquota") {
+		print "getquota";
+	}
+	elsif ($ARGV[0] eq "setquota") {
+		print "setquota";
+	}
+	elsif ($ARGV[0] eq "useradd") {
+		print "useradd";
+	}
+	elsif ($ARGV[0] eq "usermod") {
+		print "usermod";
+	}
+	elsif ($ARGV[0] eq "userdel") {
+		print "userdel";
+	}
+	elsif ($ARGV[0] eq "rm") {
+		&Rm;
+	}
+	elsif ($ARGV[0] eq "mv") {
+		&Mv;
+	}
+	elsif ($ARGV[0] eq "imgsize") {
+		&Imgsize;
+	}
+	else {
+		print "FAIL!!";
+	}
+}
+
+sub Rm {
+	# Lokale Variabeln
+	my $output_var_dir;
+	my $output_var_file;
+
+	$output_var_dir = "1";
+	$output_var_file = "2";
+	if ($ARGV[1] eq "-d") {
+		# Nur für leere Verzeichnisse!
+		# rmdir($ARGV[2]) or die $output_var_dir;
+		rmtree($ARGV[2]);
+	}
+	else {
+		unlink($ARGV[1]) or die $output_var_file;
+	}
+}
+
+sub Mv {
+	# Lokale Variabeln
+	my $output_var;
+	
+	$output_var = "1";
+	rename($ARGV[1],$ARGV[2]) or die $output_var;
+}
+
+sub Imgsize {
+	# Lokale Variabeln
+	my $x;
+	my $y;
+	my $empty;
+	
+	$empty = "0";
+	($x,$y) = imgsize($ARGV[1]);
+	if ($x == 0 or $y == 0) {
+		exit;
+	}
+	else {
+		print "(".$x."x".$y.")";
+	}
+}
+
+&Init;

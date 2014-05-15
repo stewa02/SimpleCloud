@@ -1,0 +1,8 @@
+0 testdir/bgggg
+0 testdir/bla33
+1 testdir/bla33/hallo44
+1 testdir/bla33/blasdhla
+0 testdir/zz
+1 testdir/zz/bla
+2 testdir/zz/bla/blo
+1 testdir/zz/hallo22
